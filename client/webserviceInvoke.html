@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Onvif设备服务调用</title>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <!--<script src="js/jquery-latest.js"></script>-->
+    <script src="js/wsInvoke.js"></script>
+    <link  rel="stylesheet" href="css/onvifDevMgr.css" type="text/css" media="screen">
+    <link rel='icon' href='images/onvif.ico' type='image/x-ico' />
+  </head>
+  
+  <body>
+    <h2  class='pagetitle' >
+       <img src="images/logo.png" width="189" height="35" style=" vertical-align:top; margin-bottom:-3px">
+       &nbsp;Onvif服务调用
+    </h2>
+    <hr style=" clear:both;"/>
+    <div id="wrapper"> 
+      <div id="sidebar"  class="white roundedDivBorder" >
+         <h3><img src="images/onviflogo.jpg"  width="142" height="42">服务接口</h3>
+         <ul id="wsinterface"/>
+           <li>Device Management
+               <ul>
+                   <li>Capabilities
+                      <ul>
+                         <li onclick="onLiClick(event)">GetWsdlUrl</li>
+                         <li onclick="onLiClick(event)">GetCapabilities</li>
+                         <li onclick="onLiClick(event)">GetServices</li>
+                      </ul>
+                   </li>
+                   <li>Network
+                      <ul>
+                         <li onclick="onLiClick(event)">GetHostname</li>
+                         <li onclick="onLiClick(event)">GetDNS</li>
+                         <li onclick="onLiClick(event)">GetNetworkInterfaces</li>
+                         <li onclick="onLiClick(event)">GetNetworkProtocols</li>
+                         <li onclick="onLiClick(event)">GetNetworkDefaultGateway</li>
+                      </ul>
+                   </li>
+                   <li>System
+                      <ul>
+                         <li onclick="onLiClick(event)">GetDeviceInformation</li>
+                         <li onclick="onLiClick(event)">GetSystemDateAndTime</li>
+                         <li onclick="onLiClick(event)">SetSystemFactoryDefault</li>
+                         <li onclick="onLiClick(event)">SystemReboot</li>
+                      </ul>
+                   </li>
+                   <li>Security
+                      <ul>
+                         <li onclick="onLiClick(event)">GetUsers</li>
+                      </ul>
+                   </li>
+               </ul>
+           </li>
+           <li>Media Configuration
+               <ul>
+                   <li>Media Profile
+                      <ul>
+                         <li onclick="onLiClick(event)">GetProfiles</li>
+                      </ul>
+                   </li>
+                   <li>Video Configuration 
+                      <ul>
+                         <li onclick="onLiClick(event)">GetVideoEncoderConfigurations</li>
+                         <li onclick="onLiClick(event)">GetVideoEncoderConfigurationOptions</li>
+                         <li onclick="onLiClick(event)">GetVideoSources</li>
+                         <li onclick="onLiClick(event)">GetVideoSourceConfigurations</li>
+                         <li onclick="onLiClick(event)">GetVideoSourceConfigurationOptions</li>
+                      </ul>
+                   </li>
+                   <li>Media Streaming
+                      <ul>
+                         <li onclick="onLiClick(event)">GetStreamUri</li>
+                      </ul>
+                   </li>
+              </ul>
+           </li>
+         </ul>
+      </div>
+      <div id="msgcontent" >
+         <div >
+           <input class='button bigrounded blue' id="btnInvokeWs" type="button" value="调用服务接口" title="向服务器调用选中的ONVIF服务接口">
+            <h3 id='titleCurrInf' style="display:inline-block"></h3>
+           <hr/>
+           <h3>接口参数:</h3>
+           <textarea id="inputSoap"  class="white"  style="width:95%; height:100px" spellcheck="false"  title="若框中出现'######',请替换为实际参数"></textarea>
+           <h3>返回消息:</h3>
+           <textarea id="outputSoap"  class="white" style="width:95%; height:350px" readonly="readonly"  >
+           </textarea>
+         </div>
+      </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  >
+<head >
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,width=device-width" / >
+    <title>Onvif设备管理</title>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <!-- script src="testProto.js"></script -->
+    <!--script src="sdp.js"></script -->
+    <script src="js/onvifDevMgr.js"></script>
+    <link  rel="stylesheet" href="css/onvifDevMgr.css" type="text/css" media="screen">
+    <link  rel="stylesheet" href="css/tablestyle.css" type="text/css" media="screen">
+    <link rel='icon' href='images/onvif.ico' type='image/x-ico' />
+</head>
+
+<body>
+  
+<h2  class='pagetitle' >
+   <img src="images/logo.png" width="189" height="35" style=" vertical-align:top; margin-bottom:-3px">
+   &nbsp;Onvif设备管理
+</h2>
+  
+ <div class="pagestatus" >
+    <img id='exit' src="images/turnon.png" width="30" height="35" title="退出" class="roundedDivBorder" 
+    style="filter:alpha(opacity=50);  -moz-opacity:0.5;  -khtml-opacity: 0.5;  opacity: 0.5; cursor:pointer; margin-right:50px" >
+   </div>
+
+<div id="wrapper"> 
+  <!-- the header and navigation -->
+  <div id="header" class="white">
+    <div id="navigation">
+      <ul>
+        <li><input class='button bigrounded blue' id="listDiscoveryDevices" type="button" value="发现设备列表" title="点击刷新发现设备列表"></li>
+        <li><input class='button bigrounded blue' id="listRegisteredDevices" type="button" value="入网设备列表" title="点击刷新入网设备列表"></li>
+        <li><input class='button bigrounded blue' id="registerDiscoveryDevices" type="button" value="批量设备入网" title="点击设置批量设备入网"></li>
+        
+      </ul>
+    </div>
+  </div>
+  <!-- the content -->
+  <!-- div id="sidebar"  class="white roundedDivBorder" hidden="true">
+       <h3><img src="images/camera.png"  width="42" height="42">IPC列表</h3>
+       <ul id="ipclist"/>
+  </div -->
+  <div id="content">
+             <div id="tablePager" hidden="true">
+                         <h3>
+                           <a id="pagerTitle"></a>&nbsp;&nbsp;&nbsp;共
+                           <a id="tabletotalnum"></a>条记录&nbsp;&nbsp;&nbsp; 
+                           当前页:第<a id="currentpage"></a>页&nbsp;&nbsp;
+                           <img id='pagepre' src="images/prevpage.png" title="前一页" width="24px" height="24px" style="cursor:pointer;"></img>
+                           <img id='pagenext' src="images/nextpage.png" title="后一页" width="24px" height="24px" style="cursor:pointer;"></img>
+                        </h3>
+            </div>
+            <table id="discoveredTable" class="table1"  border="0" width="100%" style="table-layout:auto;" hidden="true">
+                <thead>
+                    <tr>
+                        <th width="7%"><img src="images/camera.png" width="24" height="24"></img></th>
+                        <th width="15%" scope="col" abbr="EP">EndpointReference</th>
+                        <th width="30%" scope="col" abbr="Types" >Types</th>
+                        <th width="30%" scope="col" abbr="Scopes">Scopes</th>
+                        <th width="15%" scope="col" abbr="XAddrs">XAddrs</th>
+                        <th width="" scope="col" abbr="MV">MetadataVersion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--tr>
+                        <th  scope="row"><input type="checkbox" value="1">1</input></th>
+                        <td >duuid:demo-0890-4ef8-ac9a-5940995e6119</td>
+                        <td >tds:Device</td>
+                        <td >uuid:98190dc2-0890-4ef8-ac9a-5940995e6119</td>
+                        <td >http://prn-example/PRN42/b42-1668-a</td>
+                        <td >tds:Device</td>
+                    </tr -->
+                </tbody>
+            </table>
+            <table id="registeredDevicesTable" class="table1"  border="0" width="100%" style="table-layout:auto;"  hidden="true">
+                <thead>
+                    <tr>
+                        <th width="7%"><img src="images/registry.png" width="24" height="24"></img></th>
+                        <th width="20%" scope="col" abbr="GUID">GUID</th>
+                        <th width="20%" scope="col" abbr="EP">EndpointReference</th>
+                        <th width="25%" scope="col" abbr="Types">Types</th>
+                        <th width="" scope="col" abbr="XAddrs">XAddrs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- tr>
+                        <th  scope="row">1</th>
+                        <td >GUID:demo-0890-4ef8-ac9a-5940995e6119</td>
+                        <td >ruuid:98190dc2-0890-4ef8-ac9a-5940995e6119</td>
+                        <td >tds:Device</td>
+                        <td >http://prn-example/PRN42/b42-1668-a</td>
+                    </tr -->
+                </tbody>
+            </table>
+  
+   
+ 
+</div>
+</body>
+</html>

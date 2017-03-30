@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>播放rtsp媒体流</title>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/mediaPlay.js"></script>
+    <link  rel="stylesheet" href="css/onvifDevMgr.css" type="text/css" media="screen">
+    <link rel='icon' href='images/onvif.ico' type='image/x-ico' />
+</head>
+
+<body>
+<div align="center" style="margin-left:20px">
+      <div align="left">
+        <h3 style="display: inline-block;">StreamUri:</h3>
+        <!--<input name="textUrl" type="text" id='textUrl' style="display: inline-block;" size="60" maxlength="500"/>-->
+        <div style="position:relative;display: inline-block;"> 
+          <span style="margin-left:100px;width:18px;overflow:hidden;"> 
+            <select id='selectUrl' style="width:380px;margin-left:-100px" 
+               onchange="document.getElementById('textUrl').value=this.options[this.selectedIndex].value" name="" >
+              <!--<option value="rtsp://172.16.65.151:554/realtime?id=0">rtsp://172.16.65.151:554/realtime?id=0</option>   
+              <option value="rtsp://172.16.68.117:554/realtime?id=0">rtsp://172.16.68.117:554/realtime?id=0</option> -->
+            </select> 
+            <input id='textUrl' style="width:360px;position:absolute;left:0px;" spellcheck="false" value=""> 
+          </span>
+        </div> 
+        <input name="play" class="button bigrounded blue" id="btnPlay" type="button" value="播放" />
+        
+        <embed type='application/x-vlc-plugin' pluginspage="http://www.videolan.org/" id='vlcembed' 
+           width="640" height="480" 
+           autoplay='false' allowfullscreen='false' controls='true' text='获取媒体码流失败' >
+        </embed>
+      </div>
+</div>
+
+</body>
+</html>

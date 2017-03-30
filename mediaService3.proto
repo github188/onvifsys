@@ -1,0 +1,133 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+
+package com.kedacom.mediaservice;
+
+/* 媒体服务错误码枚举值 */
+enum MediaServiceErrorCode{
+    CODE_OK = 0;       //状态OK
+    CODE_DISK_FULL =1;  //录像磁盘满
+    CODE_DB_FAIL = 2;   //数据库错误
+    CODE_IPC_ERROR = 3;  //IPC错误
+    CODE_COMM_FAIL = 4;  //通讯错误
+    CODE_RECORD_ALREADY = 5; //录像任务已经存在
+    CODE_RECORD_QUERY_EMPTY = 6; //录像查询结果为空
+    CODE_WORKER_REG_FAIL = 7; //录像执行模块向录像管理模块注册失败
+}
+
+/* 录像媒体类型 */
+enum RecordMediaType{
+   VIDEO_AUDIO = 0; //视音频
+   VIDEO_ONLY = 1;  //视频
+   AUDIO_ONLY = 2;  //音频
+}
+
+/* 录像行为类型 */
+enum RecordActType{
+    MANUAL = 0; //手工方式录像
+    AUTO = 1;   //自动方式录像
+}
+
+/* 时间类型 */
+message TimeType{
+    int32 hour = 1 ;
+    int32 minute = 2 ;
+    int32 second = 3 ;
+}
+
+/* 日期类型 */
+message DateType{
+    int32 year = 1 ;
+    int32 month = 2 ;
+    int32 day = 3 ;
+    int32 hour = 4 ;
+    int32 minute = 5 ;
+    int32 second = 6 ;
+}
+
+/* 录像文件条目*/
+message RecordItem{
+    string ipcGuid = 1; //IPC的GUID
+    string streamUri = 2 ; //IPC流URI
+    RecordMediaType mediaType = 3; //录像的媒体类型
+    string recordFilePath = 4; //录像文件路径     
+}
+
+/* 异常定义 */
+message MediaException{
+    MediaServiceErrorCode  errCode = 1 ; //错误码一般在回应消息中应携带
+    string errDesc = 2 ; //错误描述
+    google.protobuf.Any exceptionData = 3; //错误附带数据
+}
+
+/* 开始录像请求 */
+message RecordStartReq{
+    string ipcGuid = 1; //IPC的GUID
+    string streamUri = 2 ; //待录像的IPC流URI
+    RecordMediaType mediaType = 3; //待录像的媒体类型 
+    RecordActType actType = 4; //录像类型，手动还是自动
+    TimeType startTime = 5; //自动模式下，每天开始的录像时间
+    TimeType stopTime = 6;  //自动模式下，每天结束的录像时间  
+}
+
+/* 开始录像回应 */
+message RecordStartRep{   
+}
+
+/* 停止录像请求 */
+message RecordStopReq{
+    string ipcGuid = 1; //IPC的GUID
+    string streamUri = 2 ; //待停止录像的IPC流URI
+    RecordMediaType mediaType = 3; //待停止录像的媒体类型 
+}
+
+/* 停止录像回应 */
+message RecordStopRep{   
+}
+
+/* 删除录像请求 */
+message RecordDelReq{
+    string ipcGuid = 1; //IPC的GUID
+    string streamUri = 2 ; //待录像的IPC流URI
+    RecordMediaType mediaType = 3; //待删除录像的媒体类型
+    DateType startDate = 4; //删除录像的开始时间
+    DateType stopDate = 5;  //删除录像的结束时间 
+    repeated string deledRecordPath = 6; //被删除文件的路径数组 
+}
+
+/* 删除录像回应 */
+message RecordDelRep{   
+}
+
+/* 查询录像请求*/
+message RecordQueryReq{
+    string ipcGuid = 1; //IPC的GUID
+    string streamUri = 2 ; //IPC流URI
+    RecordMediaType mediaType = 3; //录像的媒体类型
+    DateType startDate = 4; //录像的开始时间
+    DateType stopDate = 5;  //录像的结束时间 
+}
+
+/* 查询录像回应 */
+message RecordQueryRep{  
+   int32 totalNum = 1; //查询结果的总数
+   repeated RecordItem recordItems = 2; //录像文件条目数组 
+}
+
+/* 录像执行模块向录像管理模块注册请求 */
+message WorkerRegReq{
+}
+
+/* 录像执行模块向录像管理模块注册回应 */
+message WorkerRegRep{
+    string workerId = 1;  
+}
+
+/* 媒体服务接口定义 */
+service MediaService{
+   rpc recordStart ( RecordStartReq ) returns ( RecordStartRep ) ;//exception{ MediaException ) 开始录像请求
+   rpc recordStop (RecordStopReq ) returns ( RecordStopRep ) ;//exception{ MediaException ) 停止录像请求
+   rpc recordDel (RecordDelReq ) returns ( RecordDelRep ) ;//exception{ MediaException ) 删除录像请求
+   rpc recordQuery (RecordQueryReq ) returns ( RecordQueryRep ) ;//exception{ MediaException ) 查询录像请求
+   rpc workerReg (WorkerRegReq ) returns ( WorkerRegRep ) ;//exception{ MediaException ) 录像执行模块注册请求
+}

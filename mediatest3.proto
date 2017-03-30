@@ -1,0 +1,7 @@
+syntax = "proto3";
+package com.kedacom.mediaservice;
+
+    message BufTest {
+       float num1  = 1;
+       bytes payload = 2;
+    }
